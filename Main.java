@@ -5,15 +5,20 @@ import com.portfolioproject.model.Stock;
 import com.portfolioproject.model.MutualFund;
 import com.portfolioproject.model.Holding;
 
-import java.util.ArrayList;
+
+
+//To change ArrayList to HashMap add the below code
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
 
-    // Store all users
-    static List<User> users = new ArrayList<>();
-
+    //Change the users declaration
+     static Map<String, User> user = new HashMap<>();
+     
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -56,11 +61,12 @@ public class Main {
 
                     System.out.print("Enter Email: ");
                     String email = sc.nextLine();
-
+                    
+                   //Change Case 1
                     User newUser = new User(userid, name, email);
-
-                    // Add user to users list
-                    users.add(newUser);
+                    
+                    // Add user to users List
+                    user.put(userid, newUser);
 
                     System.out.println("User created successfully!");
 
@@ -72,7 +78,7 @@ public class Main {
                 // =========================================
                 case 2:
 
-                    if (users.isEmpty()) {
+                    if (user.isEmpty()) {
                         System.out.println("Please create a user first.");
                         break;
                     }
@@ -136,7 +142,7 @@ public class Main {
                 // =========================================
                 case 3:
 
-                    if (users.isEmpty()) {
+                    if (user.isEmpty()) {
                         System.out.println("Please create a user first.");
                         break;
                     }
@@ -200,7 +206,7 @@ public class Main {
                 // =========================================
                 case 4:
 
-                    if (users.isEmpty()) {
+                    if (user.isEmpty()) {
 
                         System.out.println("No users created.");
 
@@ -208,11 +214,10 @@ public class Main {
 
                         System.out.println("\n--- User Details ---");
 
-                        for (User user : users) {
-
-                            user.display();
-
-                            System.out.println("----------------------------");
+                        for (User user : user.values())
+                        {
+                        	user.display();
+                        	System.out.println("=============================================");
                         }
                     }
 
@@ -224,7 +229,7 @@ public class Main {
                 // =========================================
                 case 5:
 
-                    if (users.isEmpty()) {
+                    if (user.isEmpty()) {
 
                         System.out.println("No users created.");
 
@@ -233,7 +238,8 @@ public class Main {
 
                     System.out.println("\n--- Holdings ---");
 
-                    for (User user : users) {
+                    for (User user : user.values()) 
+                       {
 
                         System.out.println("\nUser ID: " + user.getUserid());
                         System.out.println("User Name: " + user.getName());
@@ -284,16 +290,10 @@ public class Main {
     // =========================================
     // FIND USER BY USER ID
     // =========================================
-    public static User findUser(String userid) {
+    
+    public static User findUser(String userid) 
+    {
 
-        for (User user : users) {
-
-            if (user.getUserid().equals(userid)) {
-
-                return user;
-            }
-        }
-
-        return null;
+        return user.get(userid);
     }
 }
